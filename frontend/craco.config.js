@@ -1,9 +1,10 @@
 module.exports = {
-    webpack: {
-      // Example: Add your custom configurations here
-      alias: {
-        '@components': './src/components',
-      },
+    style: {
+        postcss: {
+            plugins: [
+                require('postcss-flexbugs-fixes'),
+                require('autoprefixer'),
+            ],
+        },
     },
-  };
-  
+};
