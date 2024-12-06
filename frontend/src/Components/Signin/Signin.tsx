@@ -1,12 +1,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { login } from '../../redux/slice/AuthSlice';
-import { AppDispatch } from '../../redux/store';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Ensure styles are included
+import 'react-toastify/dist/ReactToastify.css';
+import * as Yup from 'yup';
+import { login } from '../../redux/slice/AuthSlice';
+import { AppDispatch } from '../../redux/store';
 
 const validationSchema = Yup.object({
   email: Yup.string()

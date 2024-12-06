@@ -1,5 +1,3 @@
-// src/redux/slice/AuthSlice.ts
-
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { loginApi, logoutApi, getCurrentUser, registerApi } from "../../services/authservices";
 import { AuthState } from "../../types/auth";
@@ -9,8 +7,6 @@ const login = createAsyncThunk(
     async ({ email, password }: { email: string; password: string }, thunkAPI) => {
         try {
             const response = await loginApi(email, password);
-            console.log(response, 'responsedata');
-
             return response;
         } catch (error) {
             return thunkAPI.rejectWithValue('Invalid email or password');

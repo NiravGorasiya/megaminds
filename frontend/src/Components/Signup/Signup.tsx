@@ -1,9 +1,8 @@
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../redux/store';
 import * as Yup from 'yup';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
+import { AppDispatch } from '../../redux/store';
 import { register } from '../../redux/slice/AuthSlice';
 
 // Yup validation schema for Signup form
@@ -99,9 +98,6 @@ const Signup: React.FC = () => {
                   className="text-danger"
                 />
               </div>
-
-
-
               <button type="submit" className="btn btn-primary w-100">
                 Sign Up
               </button>

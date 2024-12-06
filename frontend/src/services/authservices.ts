@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const APP_URL = 'http://localhost:5000/api'
+const APP_URL = process.env.REACT_APP_BACKEND_URL;
 
 export interface LoginResponse {
     data: {
@@ -26,8 +26,8 @@ export const loginApi = async (email: string, password: string): Promise<LoginRe
     return response.data;
 }
 
-export const registerApi = async (name:string,email: string, password: string, phone: string): Promise<RegisterResponse> => {
-    const response = await axios.post<RegisterResponse>(`${APP_URL}/auth/register`, {name, email, password, phone });
+export const registerApi = async (name: string, email: string, password: string, phone: string): Promise<RegisterResponse> => {
+    const response = await axios.post<RegisterResponse>(`${APP_URL}/auth/register`, { name, email, password, phone });
     return response.data;
 };
 
