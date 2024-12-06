@@ -18,7 +18,14 @@ class AuthMiddleware {
         });
       }
       const token = bearer.replace("Bearer ", "");
-      const decoded: any = await jwt.verify(token, "niravgorasiya");
+
+      if (!process.env.SECRET_KEY) {
+        return CommonHelper.sendResponse(res, false, HTTP_CODE.BAD_REQUEST, {
+          message: HTTP_MESSAGE.ENVIRONMENT(),
+        });
+      }
+
+      const decoded: any = await jwt.verify(token, process.env.SECRET_KEY);
 
       if (!decoded) {
         return CommonHelper.sendResponse(res, false, HTTP_CODE.UNAUTHORIZED, {

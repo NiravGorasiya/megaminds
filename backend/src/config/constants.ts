@@ -30,7 +30,10 @@ const HTTP_MESSAGE = {
   },
   UNAUTHORIZED() {
     return `Unauthorized!`;
-  }
+  },
+  LISTED(module: string) {
+    return `${module} listed successfully!`;
+  },
 };
 
 const RESPONSE_TYPE = {
