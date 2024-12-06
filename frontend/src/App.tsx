@@ -7,6 +7,7 @@ import ProtectedRoute from './Components/ProtectedRoute';
 import Signin from './Components/Signin/Signin';
 import Header from './Components/Header/Header';
 import Signup from './Components/Signup/Signup';
+import Book from './Components/Book/Book';
 
 const App: React.FC = () => {
   const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
@@ -20,6 +21,7 @@ const App: React.FC = () => {
           <Route path="/register" element={isAuthenticated ? <Navigate to="/home" /> : <Signup />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/home" element={<Home />} />
+            <Route path="/book" element={<Book />} />
           </Route>
           <Route path="*" element={<Navigate to="/home" />} />
         </Routes>
