@@ -33,8 +33,6 @@ Backend & Frontend
   npm run server
 
   # Run frontend only
-  npm run client
+  npm start
 ```
 
-## License
-GPL-3.0 — Open source license. Software can be used, copied, modified, e.t.c, free of charge.
