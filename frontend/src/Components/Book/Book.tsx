@@ -1,6 +1,7 @@
 // src/components/Book.tsx
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast, ToastContainer } from 'react-toastify';
 import { addBook, listBooks } from '../../redux/slice/bookSlice';
 import { AppDispatch, RootState } from '../../redux/store';
 
@@ -24,6 +25,8 @@ const Books: React.FC = () => {
             setTitle('');
             setShowModal(false);
             dispatch(listBooks());
+        } else {
+            toast.error('author and title are required!');
         }
     };
 
@@ -75,7 +78,7 @@ const Books: React.FC = () => {
                     </div>
                 </div>
             </div>
-
+            <ToastContainer />
             <table className="table table-striped mt-4">
                 <thead>
                     <tr>

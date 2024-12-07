@@ -21,12 +21,20 @@ const Signin: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleSubmit = (values: { email: string; password: string }) => {
-    dispatch(login(values));
-    toast.success('Login successful!');
-    navigate('/home');
+  const handleSubmit = async (values: { email: string; password: string }) => {
+    try {
+      await dispatch(login(values)).unwrap();
+      toast.success('Login successful!');
+      navigate('/home');
+    } catch (error) {   
+      if (Array.isArray(error)) {
+        error.forEach((err) => toast.error(err)); 
+      } else {
+        toast.error(error as string); 
+      }
+    }
   };
-
+ 
   return (
     <div className="d-flex justify-content-center mt-5">
       <div className="col-md-6">

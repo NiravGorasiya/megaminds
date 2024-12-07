@@ -9,7 +9,8 @@ const login = createAsyncThunk(
             const response = await loginApi(email, password);
             return response;
         } catch (error) {
-            return thunkAPI.rejectWithValue('Invalid email or password');
+            const errorMessages = ['Invalid email or password'];
+            return thunkAPI.rejectWithValue(errorMessages);
         }
     }
 );
@@ -20,8 +21,9 @@ const register = createAsyncThunk(
         try {
             const response = await registerApi(name, email, password, phone);
             return response;
-        } catch (error) {
-            return thunkAPI.rejectWithValue('Registration failed');
+        } catch (error:any) {
+            const errorMessages = error.response.data.data.message || ['An unexpected error occurred'];
+            return thunkAPI.rejectWithValue(errorMessages);
         }
     }
 );
@@ -44,24 +46,24 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-         .addCase(login.fulfilled, (state, action) => {
-            state.isAuthenticated = true;
-            state.user = action.payload.data.user;
-            state.error = null;
-        })
-        .addCase(login.rejected, (state, action) => {
-            state.isAuthenticated = false;
-            state.error = action.payload as string;
-        })
-        .addCase(register.fulfilled, (state, action) => {
-            state.isAuthenticated = true;
-            state.user = action.payload.data;
-            state.error = null;
-        })
-        .addCase(register.rejected, (state, action) => {
-            state.isAuthenticated = false;
-            state.error = action.payload as string;
-        });
+            .addCase(login.fulfilled, (state, action) => {
+                state.isAuthenticated = true;
+                state.user = action.payload.data.user;
+                state.error = null;
+            })
+            .addCase(login.rejected, (state, action) => {
+                state.isAuthenticated = false;
+                state.error = action.payload as string;
+            })
+            .addCase(register.fulfilled, (state, action) => {
+                state.isAuthenticated = true;
+                state.user = action.payload.data;
+                state.error = null;
+            })
+            .addCase(register.rejected, (state, action) => {
+                state.isAuthenticated = false;
+                state.error = action.payload as string;
+            });
     }
 });
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { useDispatch } from 'react-redux';
+import { toast, ToastContainer } from 'react-toastify';
 import * as Yup from 'yup';
 import { AppDispatch } from '../../redux/store';
 import { register } from '../../redux/slice/AuthSlice';
@@ -22,10 +23,18 @@ const validationSchema = Yup.object({
 
 const Signup: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const handleSubmit = (values: { name: string; email: string; password: string; phone: string }) => {    
-    dispatch(register(values)); 
+  const handleSubmit = async (values: { name: string; email: string; password: string; phone: string }) => {
+    try {
+      await dispatch(register(values)).unwrap();
+      toast.success('Registration successful!');
+    } catch (error) {
+      if (Array.isArray(error)) {
+        error.forEach((err) => toast.error(err)); 
+      } else {
+        toast.error(error as string); 
+      }
+    }
   };
-
   return (
     <div className="d-flex justify-content-center mt-5">
       <div className="col-md-6">
@@ -105,6 +114,7 @@ const Signup: React.FC = () => {
           )}
         </Formik>
       </div>
+      <ToastContainer />
     </div>
   );
 };

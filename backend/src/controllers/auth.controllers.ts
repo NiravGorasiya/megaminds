@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -15,7 +15,6 @@ class AuthController {
   public static register = async (
     req: Request,
     res: Response,
-    next: NextFunction
   ) => {
     try {
       const { email, password, name, phone } = req.body;
@@ -59,7 +58,6 @@ class AuthController {
   public static login = async (
     req: Request,
     res: Response,
-    next: NextFunction
   ) => {
     try {
       const { email, password } = req.body;
@@ -69,14 +67,14 @@ class AuthController {
       });
 
       if (!user) {
-        return CommonHelper.sendResponse(res, false, HTTP_CODE.UNAUTHORIZED, {
+        return CommonHelper.sendResponse(res, false, HTTP_CODE.NOT_FOUND, {
           message: HTTP_MESSAGE.INVALID_CREDENTAILS(),
         });
       }
 
       const passwordMatch = bcrypt.compareSync(password, user.password);
       if (!passwordMatch) {
-        return CommonHelper.sendResponse(res, false, HTTP_CODE.UNAUTHORIZED, {
+        return CommonHelper.sendResponse(res, false, HTTP_CODE.NOT_FOUND, {
           message: HTTP_MESSAGE.INVALID_CREDENTAILS(),
         });
       }
@@ -87,10 +85,14 @@ class AuthController {
         });
       }
 
+      const userWithoutPassword = user.toObject() as { [key: string]: any };
+      delete userWithoutPassword.password;
+      
       const token = jwt.sign(CommonHelper.JWTPayload(user), process.env.SECRET_KEY);
       return CommonHelper.sendResponse(res, true, HTTP_CODE.OK, {
         message: HTTP_MESSAGE.LOGIN_SUCCESS(),
         token,
+        user:userWithoutPassword
       });
     } catch (error) {
       return CommonHelper.sendResponse(
