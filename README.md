@@ -4,14 +4,10 @@
 * User Login & Register
 * Protected routes with React Router v6
 * JWT storage with localStorage
-* Automatically fetches user details on page load (Header.js)
 * Redux Toolkit's `createAsyncThunk`
 
 ## Usage
 git clone https://github.com/NiravGorasiya/megaminds.git
-
-### ES Modules in Node
-ECMAScript is used on the backend instead of CommonJS. This requires you to add the `.js` extension when importing a file — not package.
 
 ### MongoDB Setup
 [Getting started with MongoDB Atlas](https://www.mongodb.com/docs/atlas/getting-started/)
